@@ -24,19 +24,21 @@
       .footer-powered img { height: 34px; vertical-align:middle; margin-left:10px; }
     </style>
   </head>
-  <body>
-    <form id="orderForm" method="post" action="https://user.boozlimited.com/webhook/myform/">
-      <h2>Kebab Shop Order</h2>
-      <div class="customer-info">
-        <label for="name">Your Name:</label>
-        <input name="name" id="name" required autocomplete="off">
-      </div>
-      <div class="menu-list" id="menuList">
-        <!-- Menu rows inserted by JS -->
-      </div>
-      <div class="total-row" id="totalRow">Total: €0.00</div>
-      <button type="submit">Submit Order</button>
-    </form>
+<body>
+  <form id="orderForm" method="post" action="https://user.boozlimited.com/webhook/myform/">
+    <h2>New Order Form</h2>
+    <div class="customer-info">
+      <label for="code">Secret Code:</label>
+      <input name="code" id="code" required autocomplete="off">
+      <label for="day">Day of Delivery:</label>
+      <input name="day" id="day" type="date" required>
+    </div>
+    <div class="menu-list" id="menuList">
+    </div>
+    <div class="total-row" id="totalRow">Total: €0.00</div>
+    <button type="submit">Submit Order</button>
+  </form>
+
     <div class="footer-powered">
       Powered by BOOZLIMITED
       <img src="https://github.com/aliy4sser/kebab---form/raw/main/logo.png
