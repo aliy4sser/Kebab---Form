@@ -5,14 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <style>
     body {
-      background: #000 url('https://github.com/aliy4sser/kebab---form/raw/main/BOOZ%20BG.jpg') no-repeat center center fixed;
+      background: #000 url('https://github.com/aliy4sser/kebab---form/raw/main/BOOZ%20BG.png') no-repeat center center fixed;
       background-size: cover;
       color: #222;
       font-family: Arial, sans-serif;
       margin: 0;
       min-height: 100vh;
+      position: relative;
     }
-    /* Optional: dark overlay for readability */
     #overlay {
       position: fixed;
       z-index: 0;
@@ -22,12 +22,13 @@
     }
     form {
       background: #fcfcfc;
-      margin: 32px auto;
+      margin: 36px auto 24px auto;
       padding: 20px 10px 18px 10px;
-      border-radius: 13px;
-      max-width: 480px;
-      box-shadow: 0 4px 32px #0005;
+      border-radius: 17px;
+      max-width: 500px;
+      box-shadow: 0 4px 32px #0006;
       min-width: 0;
+      width: 94vw;
       position: relative;
       z-index: 1;
     }
@@ -37,7 +38,7 @@
       justify-content: center;
       background: linear-gradient(90deg, #bfa03c 20%, #8c6d14 100%);
       color: #fff8e0;
-      border-radius: 8px;
+      border-radius: 10px;
       padding: 14px 0 13px 0;
       margin-bottom: 25px;
       font-size: 1.28em;
@@ -60,48 +61,52 @@
       background: #fff;
       color: #111;
       font-size: 15px;
+      box-sizing: border-box;
     }
     .menu-list {
       margin: 18px 0 10px 0;
+      width: 100%;
     }
     .menu-row {
-      display: flex;
-      align-items: flex-start;
-      flex-wrap: wrap;
-      margin-bottom: 13px;
       background: #f5f5f5;
       border-radius: 8px;
-      padding: 11px 12px 7px 12px;
-      font-size: 1.07em;
-      gap: 0.7em;
-      min-width: 0;
+      margin-bottom: 13px;
+      padding: 12px 10px 10px 10px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 7px;
+      width: 100%;
+      box-sizing: border-box;
     }
     .item-name {
-      flex: 0 1 130px;
+      flex: 1 1 120px;
       font-weight: 500;
       color: #191919;
-      margin-right: 3px;
-      min-width: 90px;
+      min-width: 92px;
+      margin-right: 2px;
+      word-break: break-word;
     }
     .item-price {
       font-size: 1.09em;
       color: #9c7a13;
-      min-width: 64px;
       font-weight: bold;
+      min-width: 68px;
       text-align: right;
-      margin-left: auto;
-      margin-right: 8px;
+      margin-left: 4px;
+      margin-right: 10px;
     }
     .qty-controls {
       display: flex;
       align-items: center;
       gap: 7px;
       margin-right: 6px;
+      flex-shrink: 0;
     }
     .qty-btn {
       background: #111;
       color: #fff;
-      font-size: 1.17em;
+      font-size: 1.16em;
       font-weight: bold;
       width: 32px;
       height: 32px;
@@ -127,24 +132,25 @@
       margin: 0 3px;
     }
     .row-total {
-      min-width: 70px;
+      min-width: 76px;
       text-align: right;
       font-weight: bold;
       color: #b0911d;
-      font-size: 1.05em;
-      margin-top: 4px;
+      font-size: 1.07em;
+      margin-top: 2px;
+      flex-shrink: 0;
     }
     .row-total.mob {
       width: 100%;
       display: block;
       text-align: left;
       margin-top: 6px;
-      font-size: 1.05em;
+      font-size: 1.07em;
     }
     .total-row {
       text-align:right;
       margin: 24px 0 10px 0;
-      font-size: 1.17em;
+      font-size: 1.19em;
       font-weight: 600;
       color: #af8509;
       letter-spacing: 1px;
@@ -183,24 +189,20 @@
       vertical-align:middle;
       margin-left:10px;
     }
-    @media (max-width: 600px) {
+    @media (max-width: 650px) {
       form { max-width: 99vw; }
       .menu-row {
         flex-direction: column;
         align-items: stretch;
-        font-size: 1.07em;
+        font-size: 1.06em;
         padding: 10px 7px 8px 7px;
       }
       .item-name, .item-price, .row-total { min-width: 0; }
       .qty-controls { margin: 5px 0; }
-      .row-total {
-        display: none;
-      }
-      .row-total.mob {
-        display: block;
-      }
+      .row-total { display: none; }
+      .row-total.mob { display: block; }
     }
-    @media (min-width: 601px) {
+    @media (min-width: 651px) {
       .row-total.mob { display: none; }
     }
   </style>
@@ -243,7 +245,7 @@
       const row = document.createElement('div');
       row.className = 'menu-row';
       row.innerHTML = `
-        <div style="display: flex; align-items: center; flex: 1 1 auto; min-width:0;">
+        <div style="display: flex; align-items: center; flex: 1 1 0; min-width:0;">
           <span class="item-name">${prod.name}</span>
           <span class="item-price" id="${prod.id}_price">${prod.price} Kč</span>
           <div class="qty-controls">
