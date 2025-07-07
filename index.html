@@ -1,224 +1,244 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>New Order Form</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <style>
-      body {
-        background: #000;
-        color: #222;
-        font-family: Arial, sans-serif;
-        margin: 0;
-      }
-      form {
-        background: #fcfcfc;
-        margin: 40px auto;
-        padding: 32px 24px 24px 24px;
-        border-radius: 13px;
-        max-width: 420px;
-        box-shadow: 0 4px 32px #0005;
-      }
-      h2 {
-        margin-top: 0;
-        margin-bottom: 24px;
-        text-align: center;
-        letter-spacing: 1px;
-        color: #111;
-      }
-      .customer-info label {
-        display: block;
-        margin: 10px 0 6px 0;
-        font-weight: 500;
-        color: #111;
-      }
-      .customer-info input, .customer-info select {
-        width: 100%;
-        padding: 9px 10px;
-        margin-bottom: 16px;
-        border-radius: 6px;
-        border: 1px solid #eee;
-        background: #fff;
-        color: #111;
-        font-size: 15px;
-      }
-      .menu-list {
-        margin: 20px 0 16px 0;
-      }
-      .menu-row {
-        display: flex;
-        align-items: center;
-        margin-bottom: 15px;
-        background: #f5f5f5;
-        border-radius: 7px;
-        padding: 9px 12px;
-        font-size: 1.09em;
-      }
-      .item-name {
-        flex: 1 1 60%;
-        font-weight: 500;
-        letter-spacing: 0.5px;
-        color: #191919;
-      }
-      .item-price {
-        font-size: 0.97em;
-        color: #916a0d;
-        margin-right: 8px;
-        min-width: 60px;
-        text-align: right;
-        font-weight: bold;
-      }
-      .qty-controls {
-        display: flex;
-        align-items: center;
-        gap: 7px;
-      }
-      .qty-btn {
-        background: #111;
-        color: #fff;
-        font-size: 1.35em;
-        font-weight: bold;
-        width: 32px;
-        height: 32px;
-        border-radius: 6px;
-        border: none;
-        cursor: pointer;
-        transition: background 0.17s;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
-      .qty-btn:active, .qty-btn:focus { background: #444; outline: none; }
-      .qty-number {
-        width: 32px;
-        text-align: center;
-        font-size: 1.13em;
-        font-weight: 600;
-        background: #fff;
-        color: #111;
-        border: 1px solid #e0e0e0;
-        border-radius: 5px;
-        padding: 4px 0;
-        margin: 0 3px;
-      }
-      .total-row {
-        text-align:right;
-        margin: 25px 0 12px 0;
-        font-size: 1.17em;
-        font-weight: 600;
-        color: #af8509;
-        letter-spacing: 1px;
-      }
-      .g-recaptcha {
-        display: flex;
-        justify-content: center;
-        margin: 16px 0 12px 0;
-        transform: scale(1.06);
-      }
-      button[type="submit"] {
-        width: 100%;
-        background: linear-gradient(90deg, #bfa03c 20%, #8c6d14 100%);
-        color: #fff8e0;
-        font-weight: bold;
-        padding: 12px 0;
-        margin-top: 6px;
-        border-radius: 6px;
-        border: none;
-        font-size: 1.14em;
-        cursor: pointer;
-        box-shadow: 0 2px 12px #bfab3540;
-        transition: background 0.18s;
-      }
-      button[type="submit"]:hover { background: linear-gradient(90deg, #8c6d14 10%, #bfa03c 100%); color: #fffbe7; }
-      .footer-powered {
-        text-align:center;
-        margin-top:40px;
-        color:#888;
-        font-size:1em;
-      }
-      .footer-powered img {
-        height: 34px;
-        vertical-align:middle;
-        margin-left:10px;
-      }
-    </style>
-  </head>
-  <body>
-    <form id="orderForm" method="post" action="https://user.boozlimited.com/webhook/myform/">
-      <h2>New Order Form</h2>
-      <div class="customer-info">
-        <label for="name">Your Name:</label>
-        <input name="name" id="name" required autocomplete="off">
-        <label for="code">Secret Code:</label>
-        <input name="code" id="code" required autocomplete="off">
-        <label for="day">Day of Delivery:</label>
-        <input name="day" id="day" type="date" required>
-      </div>
-      <div class="menu-list" id="menuList"></div>
-      <div class="total-row" id="totalRow">Total: 0&nbsp;Kč</div>
-      <div class="g-recaptcha" data-sitekey="6Lf1vXorAAAAAHspROHaNwyI_WJrP2_Jy__-AkR-"></div>
-      <button type="submit">Submit Order</button>
-    </form>
-    <div class="footer-powered">
-      Powered by BOOZLIMITED
-      <img src="https://github.com/aliy4sser/kebab---form/raw/main/logo1.png" alt="BoozLimited Logo" />
+<head>
+  <title>New Order Form</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body {
+      background: #000;
+      color: #222;
+      font-family: Arial, sans-serif;
+      margin: 0;
+    }
+    form {
+      background: #fcfcfc;
+      margin: 40px auto;
+      padding: 32px 24px 24px 24px;
+      border-radius: 13px;
+      max-width: 560px; /* wider form */
+      box-shadow: 0 4px 32px #0005;
+    }
+    h2 {
+      margin-top: 0;
+      margin-bottom: 24px;
+      text-align: center;
+      letter-spacing: 1px;
+      color: #111;
+    }
+    .customer-info label {
+      display: block;
+      margin: 10px 0 6px 0;
+      font-weight: 500;
+      color: #111;
+    }
+    .customer-info input, .customer-info select {
+      width: 100%;
+      padding: 9px 10px;
+      margin-bottom: 16px;
+      border-radius: 6px;
+      border: 1px solid #eee;
+      background: #fff;
+      color: #111;
+      font-size: 15px;
+    }
+    .menu-list {
+      margin: 20px 0 16px 0;
+    }
+    .menu-row {
+      display: flex;
+      align-items: center;
+      margin-bottom: 15px;
+      background: #f5f5f5;
+      border-radius: 7px;
+      padding: 9px 14px;
+      font-size: 1.09em;
+      min-width: 390px;
+    }
+    .item-name {
+      flex: 1 1 36%;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+      color: #191919;
+      min-width: 120px;
+      margin-right: 8px;
+    }
+    .item-price {
+      font-size: 1.07em;
+      color: #9c7a13;
+      margin-right: 26px;  /* MORE SPACE */
+      min-width: 70px;
+      text-align: right;
+      font-weight: bold;
+    }
+    .qty-controls {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      margin-right: 10px;
+    }
+    .qty-btn {
+      background: #111;
+      color: #fff;
+      font-size: 1.3em;
+      font-weight: bold;
+      width: 32px;
+      height: 32px;
+      border-radius: 6px;
+      border: none;
+      cursor: pointer;
+      transition: background 0.17s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .qty-btn:active, .qty-btn:focus { background: #444; outline: none; }
+    .qty-number {
+      width: 32px;
+      text-align: center;
+      font-size: 1.13em;
+      font-weight: 600;
+      background: #fff;
+      color: #111;
+      border: 1px solid #e0e0e0;
+      border-radius: 5px;
+      padding: 4px 0;
+      margin: 0 3px;
+    }
+    .row-total {
+      min-width: 75px;
+      text-align: right;
+      font-weight: bold;
+      color: #b0911d;
+      margin-left: 10px;
+      font-size: 1.08em;
+    }
+    .total-row {
+      text-align:right;
+      margin: 25px 0 12px 0;
+      font-size: 1.17em;
+      font-weight: 600;
+      color: #af8509;
+      letter-spacing: 1px;
+    }
+    .g-recaptcha {
+      display: flex;
+      justify-content: center;
+      margin: 16px 0 12px 0;
+      transform: scale(1.06);
+    }
+    button[type="submit"] {
+      width: 100%;
+      background: linear-gradient(90deg, #bfa03c 20%, #8c6d14 100%);
+      color: #fff8e0;
+      font-weight: bold;
+      padding: 12px 0;
+      margin-top: 6px;
+      border-radius: 6px;
+      border: none;
+      font-size: 1.14em;
+      cursor: pointer;
+      box-shadow: 0 2px 12px #bfab3540;
+      transition: background 0.18s;
+    }
+    button[type="submit"]:hover { background: linear-gradient(90deg, #8c6d14 10%, #bfa03c 100%); color: #fffbe7; }
+    .footer-powered {
+      text-align:center;
+      margin-top:40px;
+      color:#888;
+      font-size:1em;
+    }
+    .footer-powered img {
+      height: 34px;
+      vertical-align:middle;
+      margin-left:10px;
+    }
+    @media (max-width: 650px) {
+      form { max-width: 98vw; }
+      .menu-row { flex-wrap: wrap; }
+      .item-name, .item-price, .row-total { min-width: 80px; }
+    }
+  </style>
+</head>
+<body>
+  <form id="orderForm" method="post" action="https://user.boozlimited.com/webhook/myform/">
+    <h2>New Order Form</h2>
+    <div class="customer-info">
+      <label for="name">Your Name:</label>
+      <input name="name" id="name" required autocomplete="off">
+      <label for="code">Secret Code:</label>
+      <input name="code" id="code" required autocomplete="off">
+      <label for="day">Day of Delivery:</label>
+      <input name="day" id="day" type="date" required>
     </div>
-    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
-    <script>
-      // Products/prices in CZK
-      const PRODUCTS = [
-        {id: "Beef kebab 20Kg",      name: "🥙 Beef Kebab 20Kg",          price: 650},
-        {id: "Beef kebab 30kg",      name: "🥙 Beef Kebab 30Kg",          price: 850},
-        {id: "Chicken kebab 20kg",   name: "🥙 chicken Kebab 20Kg",       price: 850},
-        {id: "Chicken kebab 30kg",   name: "🥙 chicken Kebab 30Kg",       price: 1050},
-        {id: "Bread",                name: "🥙 Bread",                    price: 150},
-        {id: "fries",                name: "🍟 Fries",                    price: 40},
-        {id: "drink",                name: "🥤 Soft Drink",               price: 20}
-      ];
-      const menuList = document.getElementById('menuList');
+    <div class="menu-list" id="menuList"></div>
+    <div class="total-row" id="totalRow">Total: 0&nbsp;Kč</div>
+    <div class="g-recaptcha" data-sitekey="6Lf1vXorAAAAAHspROHaNwyI_WJrP2_Jy__-AkR-"></div>
+    <button type="submit">Submit Order</button>
+  </form>
+  <div class="footer-powered">
+    Powered by BOOZLIMITED
+    <img src="https://github.com/aliy4sser/kebab---form/raw/main/logo1.png" alt="BoozLimited Logo" />
+  </div>
+  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+  <script>
+    // Products/prices in CZK
+    const PRODUCTS = [
+      {id: "Beef kebab 20Kg",      name: "🥙 Beef Kebab 20Kg",          price: 650},
+      {id: "Beef kebab 30kg",      name: "🥙 Beef Kebab 30Kg",          price: 850},
+      {id: "Chicken kebab 20kg",   name: "🥙 chicken Kebab 20Kg",       price: 850},
+      {id: "Chicken kebab 30kg",   name: "🥙 chicken Kebab 30Kg",       price: 1050},
+      {id: "Bread",                name: "🥙 Bread",                    price: 150},
+      {id: "fries",                name: "🍟 Fries",                    price: 40},
+      {id: "drink",                name: "🥤 Soft Drink",               price: 20}
+    ];
+    const menuList = document.getElementById('menuList');
+    PRODUCTS.forEach(prod => {
+      const row = document.createElement('div');
+      row.className = 'menu-row';
+      row.innerHTML = `
+        <span class="item-name">${prod.name}</span>
+        <span class="item-price" id="${prod.id}_price">${prod.price} Kč</span>
+        <div class="qty-controls">
+          <button type="button" class="qty-btn" onclick="changeQty('${prod.id}', -1)">–</button>
+          <input class="qty-number" name="${prod.id}_qty" id="${prod.id}_qty" type="text" value="0" readonly>
+          <button type="button" class="qty-btn" onclick="changeQty('${prod.id}', 1)">+</button>
+        </div>
+        <span class="row-total" id="${prod.id}_total">0 Kč</span>
+      `;
+      menuList.appendChild(row);
+    });
+
+    function changeQty(item, delta) {
+      const qtyInput = document.getElementById(item + '_qty');
+      let value = parseInt(qtyInput.value, 10) || 0;
+      value += delta;
+      if (value < 0) value = 0;
+      qtyInput.value = value;
+      calcTotal();
+    }
+
+    function calcTotal() {
+      let total = 0;
       PRODUCTS.forEach(prod => {
-        const row = document.createElement('div');
-        row.className = 'menu-row';
-        row.innerHTML = `
-          <span class="item-name">${prod.name}</span>
-          <span class="item-price" id="${prod.id}_price">${prod.price} Kč</span>
-          <div class="qty-controls">
-            <button type="button" class="qty-btn" onclick="changeQty('${prod.id}', -1)">–</button>
-            <input class="qty-number" name="${prod.id}_qty" id="${prod.id}_qty" type="text" value="0" readonly>
-            <button type="button" class="qty-btn" onclick="changeQty('${prod.id}', 1)">+</button>
-          </div>
-        `;
-        menuList.appendChild(row);
+        let qty = parseInt(document.getElementById(prod.id + '_qty').value) || 0;
+        let rowTotal = prod.price * qty;
+        document.getElementById(prod.id + '_total').innerHTML = rowTotal > 0 ? (rowTotal + ' Kč') : '0 Kč';
+        total += rowTotal;
       });
+      document.getElementById('totalRow').innerHTML = 'Total: ' + total + '&nbsp;Kč';
+    }
 
-      function changeQty(item, delta) {
-        const qtyInput = document.getElementById(item + '_qty');
-        let value = parseInt(qtyInput.value, 10) || 0;
-        value += delta;
-        if (value < 0) value = 0;
-        qtyInput.value = value;
-        calcTotal();
-      }
-
-      function calcTotal() {
-        let total = 0;
-        PRODUCTS.forEach(prod => {
-          let qty = parseInt(document.getElementById(prod.id + '_qty').value) || 0;
-          total += prod.price * qty;
-        });
-        document.getElementById('totalRow').innerHTML = 'Total: ' + total + '&nbsp;Kč';
-      }
-
-      // Prevent submit if no items selected
-      document.getElementById('orderForm').addEventListener('submit', function(e) {
-        let sum = 0;
-        PRODUCTS.forEach(prod => {
-          sum += parseInt(document.getElementById(prod.id + '_qty').value) || 0;
-        });
-        if (sum === 0) {
-          alert("Please select at least one item!");
-          e.preventDefault();
-        }
+    // Prevent submit if no items selected
+    document.getElementById('orderForm').addEventListener('submit', function(e) {
+      let sum = 0;
+      PRODUCTS.forEach(prod => {
+        sum += parseInt(document.getElementById(prod.id + '_qty').value) || 0;
       });
-    </script>
-  </body>
+      if (sum === 0) {
+        alert("Please select at least one item!");
+        e.preventDefault();
+      }
+    });
+  </script>
+</body>
 </html>
