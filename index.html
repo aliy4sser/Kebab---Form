@@ -20,7 +20,7 @@
       background: rgba(0,0,0,0.52);
       pointer-events: none;
     }
-    form {
+    form, .thank-you-message {
       background: #fcfcfc;
       margin: 36px auto 24px auto;
       padding: 20px 10px 18px 10px;
@@ -45,6 +45,20 @@
       font-weight: bold;
       letter-spacing: 1.3px;
       box-shadow: 0 2px 12px #bfab3530;
+    }
+    .thank-you-message {
+      text-align: center;
+      font-size: 1.15em;
+      color: #7b630a;
+      font-weight: bold;
+      margin-top: 60px;
+      margin-bottom: 70px;
+      background: #fffbe4cc;
+      border: 2px solid #bfa03c;
+      min-height: 220px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
     }
     .customer-info label {
       display: block;
@@ -190,7 +204,7 @@
       margin-left:10px;
     }
     @media (max-width: 650px) {
-      form { max-width: 99vw; }
+      form, .thank-you-message { max-width: 99vw; }
       .menu-row {
         flex-direction: column;
         align-items: stretch;
@@ -209,21 +223,23 @@
 </head>
 <body>
   <div id="overlay"></div>
-  <form id="orderForm" method="post" action="https://user.boozlimited.com/webhook/myform/">
-    <div class="gold-header">New Order Form</div>
-    <div class="customer-info">
-      <label for="name">Your Name:</label>
-      <input name="name" id="name" required autocomplete="off">
-      <label for="code">Secret Code:</label>
-      <input name="code" id="code" required autocomplete="off">
-      <label for="day">Day of Delivery:</label>
-      <input name="day" id="day" type="date" required>
-    </div>
-    <div class="menu-list" id="menuList"></div>
-    <div class="total-row" id="totalRow">Total: 0&nbsp;Kč</div>
-    <div class="g-recaptcha" data-sitekey="6Lf1vXorAAAAAHspROHaNwyI_WJrP2_Jy__-AkR-"></div>
-    <button type="submit">Submit Order</button>
-  </form>
+  <div id="form-container">
+    <form id="orderForm" method="post" action="https://user.boozlimited.com/webhook/myform/">
+      <div class="gold-header">New Order Form</div>
+      <div class="customer-info">
+        <label for="name">Your Name:</label>
+        <input name="name" id="name" required autocomplete="off">
+        <label for="code">Secret Code:</label>
+        <input name="code" id="code" required autocomplete="off">
+        <label for="day">Day of Delivery:</label>
+        <input name="day" id="day" type="date" required>
+      </div>
+      <div class="menu-list" id="menuList"></div>
+      <div class="total-row" id="totalRow">Total: 0&nbsp;Kč</div>
+      <div class="g-recaptcha" data-sitekey="6Lf1vXorAAAAAHspROHaNwyI_WJrP2_Jy__-AkR-"></div>
+      <button type="submit">Submit Order</button>
+    </form>
+  </div>
   <div class="footer-powered">
     Powered by BOOZLIMITED
     <img src="https://github.com/aliy4sser/kebab---form/raw/main/logo1.png" alt="BoozLimited Logo" />
@@ -290,8 +306,43 @@
       if (sum === 0) {
         alert("Please select at least one item!");
         e.preventDefault();
+        return;
       }
+
+      // Prevent normal form submission
+      e.preventDefault();
+
+      // If already submitted, do nothing (double security)
+      if (localStorage.getItem('orderSubmitted') === 'yes') return;
+
+      // Prepare form data for webhook
+      const form = document.getElementById('orderForm');
+      const formData = new FormData(form);
+
+      // Also add the reCAPTCHA response
+      formData.append('g-recaptcha-response', grecaptcha.getResponse());
+
+      // Send data via AJAX to webhook
+      fetch(form.action, {
+        method: 'POST',
+        body: formData,
+      })
+      .then(r => {
+        // Show thank you message
+        localStorage.setItem('orderSubmitted', 'yes');
+        document.getElementById('form-container').innerHTML = `<div class="thank-you-message"><span style="font-size:1.7em;">🎉</span>Thank you for your order!<br>We have received it and will process it soon.<br><br><span style="font-size:0.97em; color:#B3911B;">If you want to make another order, please open this page in a new private window or contact us.</span></div>`;
+      })
+      .catch(err => {
+        alert('Something went wrong. Please try again!');
+      });
     });
+
+    // If already submitted, show thank you message instead of form
+    window.onload = function() {
+      if (localStorage.getItem('orderSubmitted') === 'yes') {
+        document.getElementById('form-container').innerHTML = `<div class="thank-you-message"><span style="font-size:1.7em;">🎉</span>Thank you for your order!<br>We have received it and will process it soon.<br><br><span style="font-size:0.97em; color:#B3911B;">If you want to make another order, please open this page in a new private window or contact us.</span></div>`;
+      }
+    }
   </script>
 </body>
 </html>
